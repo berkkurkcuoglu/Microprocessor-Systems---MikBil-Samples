@@ -1,0 +1,38 @@
+*----------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Dizideki Buyuk Harfleri Gonderme
+*----------------------------------------------------------------------------------------
+	BAS $1000
+	VER $1,$2,$3,$4,$33,$34,$36,$44,$66,$72,$AA,$40,$3F,$55,$41,$5A
+	VER $1,$2,$3,$4,$33,$34,$36,$44,$66,$72,$AA,$40,$3F,$55,$41,$5A
+	VER $1,$2,$3,$4,$33,$34,$36,$44,$66,$72,$AA,$40,$3F,$55,$41,$5A
+	VER $1,$2,$3,$4,$33,$34,$36,$44,$66,$72,$AA,$40,$3F,$55,$41,$5A
+
+DIZI	EÞT	$1000	
+SON	EÞT	$2000
+
+	BAS $300
+START	YAZ $FF,<YÖNLEN.B>
+	YAZ $10,<DURDEN.A>		
+	YUK SK,DIZI	
+GERI	YUK A,<SK+00>
+YOKLA	YUK B,<DURDEN.A>
+	VE B,$80
+	DED YOKLA
+	KAR A,$41
+	DEK ILERI
+	KAR A,$5A
+	DEB ILERI
+	YAZ A,<ÝSKELE.B>
+	SIL 4,<DURDEN.A>
+	KUR 4,<DURDEN.A>
+ILERI	ART SK
+	KAR SK,SON
+	DED GERI
+	KES
+
+
+
+
+
+		
+	

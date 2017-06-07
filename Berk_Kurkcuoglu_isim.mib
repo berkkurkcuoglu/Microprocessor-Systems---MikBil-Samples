@@ -1,0 +1,46 @@
+*---------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Isim yazma
+*---------------------------------------------------------------
+	BAÞ $1000
+	VER $2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A	15 tane yildiz
+	VER $42,$45,$52,$4B,$20,$4B,$55,$52,$4B,$43,$55,$4F,$47,$4C,$55	BERK KURKCUOGLU
+	VER $2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A	15 yildiz
+
+YILDIZ1 EST	$1000
+ISIM EST	$100F
+YILDIZ2 EST	$101E
+
+	BAÞ $300
+BAÞLA YÜK C,$F	c'ye sayac olarak 15 yukleme
+	YÜK SK,YILDIZ1	sk'ya yildiz baslangicini yukleme
+GERI	YÜK B,<SK+00>	b'ye dizideki elemani yukleme
+	ALT YAZMA	b'deki elemani ekrana yazma
+	ART SK	diziyi ilerletme
+	ADED C,GERI	sayaci azaltip sifirlanmadiysa geri dallanma
+	ALT SATBA	satirbasi
+	YÜK C,$F	c'ye sayac olarak 15 yukleme
+	YÜK SK,ISIM	sk'ya isim baslangicini yukleme
+GERI2	YÜK B,<SK+00>	b'ye dizideki elemani yukleme
+	ALT YAZMA	ekrana yazma
+	ART SK	sk'yi arttirma
+	ADED C,GERI2	sayaci azaltip sifirlanmadiysa geri dallanma	
+	ALT SATBA	satirbasi
+	YÜK C,$F	c'ye sayac olarak 15 yukleme
+	YÜK SK,YILDIZ2	sk'ya yildiz2 baslangicini yukleme
+GERI3	YÜK B,<SK+00>	elemani b'ye yukleme
+	ALT YAZMA	ekrana yazma
+	ART SK	diziyi ilerletme
+	ADED C,GERI3	sayaci azaltip kontrol etme
+	KES
+
+SATBA YÜK B,$0D
+	ALT YAZMA
+	YÜK B,$0A
+	ALT YAZMA
+	DÖN
+YAZMA YÜK A,<DURUM>
+	VE A,$02
+	DEE YAZMA
+	YAZ B,<VERÝCÝ>
+	DÖN
+ 

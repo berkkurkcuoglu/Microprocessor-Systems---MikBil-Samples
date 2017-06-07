@@ -1,0 +1,96 @@
+*---------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Sayi Tahmin Oyunu
+*---------------------------------------------------------------------
+	BAÞ $10
+	VER $34,$35	tahmin edilecek sayinin ascii karsiligi (45)
+
+	BAÞ $20
+	VER $47,$41,$4D,$45,$20,$4F,$56,$45,$52	GAME OVER
+		
+	BAÞ $40
+	VER $34,$34,$31,$32,$33,$35,$36,$36,$34,$35	Tahminler -> 44,12,35,66,45
+
+	BAÞ $100
+	VER $41,$46,$45,$52,$49,$4E,$21	AFERIN!
+
+	BAÞ $110
+	VER $42,$55,$59,$55,$4B	BUYUK
+
+	BAÞ $120
+	VER $4B,$55,$43,$55,$4B	KUCUK
+	
+SAYI 	 EÞT $10	Tahmin edilecek sayi --> 45
+GO	 EÞT $20	Game Over
+SONDORT EÞT $28	GO sonu
+TAHMIN  EÞT $40	Tahminler
+AFERIN EÞT $100	Aferin
+SONBIR EÞT $106	Aferin sonu
+BUYUK  EÞT $110	Buyuk
+SONIKI EÞT $114	Buyuk sonu
+KUCUK  EÞT $120	Kucuk
+SONUC  EÞT $124	Kucuk sonu
+SAYAC	EÞT $200	Sayac
+
+	BAÞ 300	program baslangic adresi
+OKUMA YÜK A,<DURUM>
+	DEE OKUMA
+	YÜK B,<ALICI>
+	DÖN
+	
+BAÞLA YAZ 5,<SAYAC>	sayaca 5 yukleme
+	YUK SK,TAHMIN	okuma olmadigi icin tahminleri diziden almak amaciyla sk'ya diziyi yukleme
+GERI	ALT OKUMA	tahmin edilen sayinin onlar basamagini okuma	
+	YÜK B,<SK+00>	ilk tahminin onlar basamagini b'ye yukleme
+	ART SK		diziyi ilerletme		
+	KAR B,<SAYI>	tahmin edilen sayi ile tahmin edilecek sayinin onlar basamagini karsilastirma
+	DEE ÝLERÝ	esit ise birler basamagini karsilastirmak uzere ileri gitme
+	DEB BUYUK1	buyuk ise buyuk yazisini ekrana basan bolume dallanma
+	DEK KUCUK1	kucuk ise kucuk yazisini ekrana basan bolume dallanma
+ÝLERÝ	ALT OKUMA	birler basamagini okuma	
+	YÜK B,<SK+00>	B'ye birler basamagini yukleme	
+	KAR B,<SAYI+01>	tahmin edilen sayi ile tahmin edilecek sayinin birler basamagini karsilastirma
+	DEE ESIT	esit ise aferin yazan bolume dallanma
+	DEB BUYUK1	buyuk ise buyuk yazisini ekrana basan bolume dallanma
+	DEK KUCUK1	kucuk ise kucuk yazisini ekrana basan  bolume dallanma
+DEVAM	ART SK	diziyi ilerletme
+	ADED <SAYAC>,GERI	sayaci azaltip sifirlanmadiysa geri dallanip yeni tahmini alma
+	ALT GO1	5 hak doldu ise oyun bitti yazisini ekrana basan bolume dallanma
+	KES 
+
+KUCUK1 YÜK CD,KUCUK	cd'ye kucuk dizisinin basini yukle
+GERI1	YÜK B,<CD>	b'ye elemani yukle
+	ALT YAZMA	elemani ekrana yaz
+	ART CD	diziyi ilerlet
+	KAR CD,SONUC	cd'yi dizinin sonu ile karsilastir		
+	DEK GERI1	sona gelinmediyse geri dallan
+	DAL DEVAM	yazilma bitti ise ana bolume dallan
+
+BUYUK1 YÜK CD,BUYUK	cd'ye buyuk dizisinin basini yukle
+GERI2 YÜK B,<CD>	b'ye elemani yukle
+	ALT YAZMA	ekrana yaz
+	ART CD	diziyi ilerlet
+	KAR CD,SONIKI	cd ile dizi sonunu karsilastir
+	DEK GERI2	sona gelinmediyse geri dallan
+	DAL DEVAM	gelindiyse ana bolume dallan
+	
+ESIT YÜK CD,AFERIN	cd'ye aferin dizinin basini yukle
+GERI3	YÜK B,<CD>	b'ye elemani yukle
+	ALT YAZMA	ekrana yaz
+	ART CD	diziyi ilerlet
+	KAR CD,SONBIR	cd ile dizi sonunu karsilastir
+	DEK GERI3	sona gelinmediyse geri dallan
+	KES	gelindiyse oyun bitti kes
+
+GO1	YÜK CD,GO	cd'ye go dizisinin basini yukle
+GERI4	YÜK B,<CD>	b'ye elemani yukle
+	ALT YAZMA	ekrana yaz
+	ART CD	diziyi ilerlet
+	KAR CD,SONDORT	cd ile dizinin sonunu karsilastir	
+	DEK GERI4	dizinin sonuna gelinmediyse geri dallan
+	KES	gelindiyse oyunu bitir
+
+YAZMA	YÜK A,<DURUM>
+	VE A,$02
+	DEE YAZMA
+	YAZ B,<VERÝCÝ>
+	DÖN

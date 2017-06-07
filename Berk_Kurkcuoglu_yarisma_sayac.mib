@@ -1,0 +1,40 @@
+*----------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Yarýþma Sayacý
+*----------------------------------------------------------------------------------------	
+
+	BAS $100	
+	VER $10,$0,$58,$2,$12,$19,$30,$24,$79,$40		Sayaçta gösterilecek 0-9 arasý rakamlarý gösteren lambalarýn sayýsal deðerlerini tabloya giriyoruz. Burada yanmayan lambalar gerçekte yanýyor.
+
+TABLO EST $100
+
+	BAS $300
+
+KOSUL YUK A,$FF
+	YAZ A,<YÖNLEN.B>
+	YAZ A,<ÝSKELE.B>		Tüm lambalarý söndürüyoruz ancak mikbilde FF'te hepsi yanýyor.
+	DON
+
+START ALT KOSUL
+	YUK A,%00110000
+	YAZ A,<ÝSKELE.B>	
+KESME	YUK B,<DURDEN.B>
+	VE B,%10000000
+	DED KESME			Deðer eþitse kesilmesi gerek ancak durum kütüðü olmadýðý için sonsuz döngü oluþturmamak için eþit deðilse kesmeye gidiyor.
+	DAL SAAT			Arada bekleme var ancak gösteremiyoruz.Bu adýmda kesme geldiðini varsayýp saat isimli kesmeye gidiyor.
+
+SAAT  YUK SK,TABLO
+	YUK B,$A
+DONGU	YUK A,<SK+00>
+	ART SK
+	YAZ A,<ÝSKELE.B>
+	ALT GECIK
+	ADED B,DONGU
+	KES
+
+
+GECIK YUK A,$5
+LOOP	YUK CD,$FFFF
+GERI	AZT CD
+	DED GERI
+	ADED A,LOOP
+	DON

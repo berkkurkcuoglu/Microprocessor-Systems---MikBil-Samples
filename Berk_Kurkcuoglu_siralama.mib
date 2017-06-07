@@ -1,0 +1,59 @@
+*----------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Kabarcik Siralama
+*----------------------------------------------------------------------
+
+	BAS $200	bellege diziyi ekleme
+	VER $10,$9,$8,$7,$6,$5,$4,$3,$2,$1,$20,$19,$18,$17,$16,$15,$14,$13,$12,$11
+
+	BAS $100	100->200 102->14 104->230
+	VER $02,$00,$14,$00,$02,$30
+
+* Simgesel adreslerin atanmasi
+
+ASIL	EÞT $100		siralanacak dizinin baslangic adresinin bulundugu adres
+SAYAC	EÞT $102		siralanacak dizinin eleman sayisini tutan adres
+SIRA	EÞT $104		siralanan dizinin yazilacagi baslangic adresinin bulundugu adres
+ICSAY	EÞT $400		dongulerde kullanilmak uzere eleman sayisinin yazilacagi adres
+TEMP	EÞT $410		dizinin iki elemanin yerlerini degistirirken kullanilacak gecici adres
+
+* Program baslangici @300
+
+	BAS $300
+START ALT SORT		siralama programini calistir
+	YUK B,<SAYAC>	b'ye eleman(sayac) degerini yukle
+	YUK SK,<ASIL>	sk'ya asil dizinin baslangic adresini yukle
+	YUK CD,<SIRA>	cd'ye siralanan dizinin baslangic adresini yukle
+GERI	YUK A,<SK+00>	a'ya dizideki elemani yukle
+	ART SK		asil diziyi ilerlet
+	YAZ A,<CD>		dizideki elemani sirali diziye yaz	
+	ART CD		sirali diziyi ilerlet
+	AZT B			sayaci azalt
+	DED GERI		sayac sifirlanmadiysa geri don
+	KES
+
+* Kabarcik siralama
+
+SORT	YUK B,<SAYAC>	b kutugune sayaci yukle
+OLOOP	YUK A,<SAYAC>	a kutugune sayaci yukle
+	AZT A			ic dongu n-1 kez calisacagi icin sayac degerini bir azalt
+	YAZ A,<ICSAY>	azaltilmis sayac degerini icsayaca yaz
+	YUK SK,<ASIL>	sk'ya dizinin baslangic adresini yukle
+ILOOP	YUK A,<SK+00>	a'ya dizideki elemani yukle
+	KAR A,<SK+01>	a'ya yuklenen eleman ile bir sonraki elemani karsilastir
+	DEK DEVAM		dizi de once olan eleman kucuk ise devam et,degilse yer degistir
+	YUK CD,<SK+01>	cd'ye ikinci elemani yukle
+	YAZ CD,<TEMP>	ikinci elemani gecici bellek gozune yaz
+	YAZ A,<SK+01>	dizide once gelen elemani sonrakinin bulundugu adrese yaz
+	YUK A,<TEMP>	gecici bellek gozunde bulunan ikinci elemani a'ya yukle
+	YAZ A,<SK+00>	a'daki ikinci elemani dizide onde bulunan adrese yaz
+DEVAM	ART SK		sira kutugunu ilerlet
+	AZT <ICSAY>		ic sayaci azalt
+	DED ILOOP		sayac sifirlanmadiysa ILOOP(inner loop)'a geri don
+	AZT B			B'de bulunan sayac degerini azalt
+	DED OLOOP		sayac sifirlanmadiysa OLOOP(outer loop)'a geri don
+	DON
+	
+	
+	
+	
+	

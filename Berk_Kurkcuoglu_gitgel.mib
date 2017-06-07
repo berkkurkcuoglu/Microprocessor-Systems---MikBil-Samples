@@ -1,0 +1,30 @@
+*--------------------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Lambalari sirayla yakip sondurerek geri donme
+*--------------------------------------------------------------------------------------------------
+
+	BAS $1000
+ 
+BAÞLA	YAZ $FF, <YÖNLEN.B>
+BASA	YUK B,$8
+	SIL A
+GIT 	ART A	
+	YAZ A,<ÝSKELE.B>
+	SOL A
+	ALT GECIK
+	ALT GECIK
+	ALT GECIK	
+	ADED B,GIT 
+ 	YUK B,$8
+GEL	SAG A
+	YAZ A,<ÝSKELE.B>	
+	ALT GECIK
+	ALT GECIK
+	ALT GECIK
+	ADED B,GEL 
+	DAL BASA
+
+
+GECIK YUK SK,$FFFF
+GERI	AZT SK
+	DED GERI
+	DON

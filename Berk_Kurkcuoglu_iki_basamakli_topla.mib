@@ -1,0 +1,122 @@
+*----------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Iki basamakli iki sayiyi toplama
+*----------------------------------------------------------------------------------------
+* Ornekte 78 + 36 = 114
+*----------------------------------------------------------------------------------------
+
+
+ILKBIR	EÞT	$10	ilk sayinin birler basamaginin yazilacagi adres
+IKIBIR	EÞT	$11	ikinci sayinin birler basamaginin yazilacagi adres
+ILKIKI	EÞT	$12	ilk sayinin ikinci basamaginin yazilacagi adres
+IKIKI		EÞT	$13	ikinci sayinin ikinci basamaginin yazilacagi adres
+UCBIR 	EÞT	$14	sonucun birler basamaginin yazilacagi adres
+UCIKI 	EÞT	$15	sonucun ikinci basamaginin yazilacagi adres
+UCUC 		EÞT	$16	sonucun ucuncu basamaginin yazilacagi adres
+
+
+ILK1	EÞT	$38	ilk sayinin ilk basamaginin ascii karsiligi
+ILK2	EÞT	$37	ilk sayinin ikinci basamaginin ascii karsiligi
+IKI1	EÞT	$36	ikinci sayinin ilk basamaginin ascii karsiligi
+IKI2	EÞT	$33	ikinci sayinin ikinci basamaginin ascii karsiligi
+	
+	BAÞ $300
+BAÞLA YÜK B,$41	a nin ascii karsiligi
+	ALT YAZI2	a'yi yazma
+	YÜK B,$3D	='in ascii karsiligi
+	ALT YAZI2	='i basma
+	ALT OKU2	ilk sayiyi okuma
+	YÜK B,ILK1	okuma calismadigi icin manuel yukleme
+	YAZ B,<ILKBIR>	okunan sayiyi ilkbir gozune kaydetme
+	ALT YAZI2	okunan sayiyi ekrana yazma
+	ALT OKU2	ilk sayinin ikinci basamagini okuma
+	YÜK B,ILK2	manuel yukleme
+	YAZ B,<ILKIKI>	okunan sayiyi ilkiki gozune kaydetme
+	ALT YAZI2	okunan sayiyi ekrana yazma
+	ALT SAT2	satirbasi
+	DAL GEC	ileri dallanma
+YAZI2 ALT YAZI	128 biti gectigi icin ekstra dallanmalar
+	DÖN
+OKU2	ALT OKU
+	DÖN
+SAT2	ALT SAT
+	DÖN
+GEC	YÜK B,$42	B'nin ascii karsiligi
+	ALT YAZI2	B'yi yazma
+      YÜK B,$3D	='in ascii karsiligi
+	ALT YAZI2	='i yazma
+	ALT OKU2	ikinci sayiyi okuma
+	YÜK B,IKI1	manuel yukleme
+	YAZ B,<IKIBIR>	okunan sayiyi ikibire kaydetme
+	ALT YAZI2	okunan sayiyi ekrana yazma
+	ALT OKU2	ikinci sayinin ikinci basamagini okuma
+	YÜK B,IKI2	manuel yukleme
+	YAZ B,<IKIKI>	okunan sayiyi ikiikiye kaydetme
+	ALT YAZI2	okunan sayiyi ekrana yazma
+	YÜK A,<ILKBIR>	a'ya ilk sayinin birinci basamagini yukleme
+	YÜK B,<IKIBIR>	b'ye ikinci sayinin birinci basamagini yukleme
+	VE A,$0F	ascii sayiyi hexadecimale cevirme
+	VE B,$0F	ascii sayiyi hexadecimale cevirme
+	TOP A,B	ilk basamaklari toplama
+	KAR A,$A	eldeyi kontrol etme
+	DEK DEVAM	elde yoksa devama dallanma
+	CIK A,$A	elde varsa sayidan 10 cikarma
+	YAZ $1,<UCIKI>	elde varsa sonucun ikinci basamagina bir yazma
+	DAL ILERI	ileri dallanma
+DEVAM	YAZ $0,<UCIKI>	elde yoksa sonucun ikinci basamagina sifir yazma
+ILERI	YAZ A,<UCBIR>	a kutugunde bulunan ilk basamaklarin toplamini sonucun ilk basamagina yazma
+	YÜK A,<ILKIKI>	a'ya ilk sayinin ikinci basamagini yukleme
+	YÜK B,<IKIKI>	b'ye ikinci sayinin ikinci basamagini yukleme
+	VE A,$0F	ascii sayiyi hexadecimale cevirme
+	VE B,$0F	ascii sayiyi hexadecimale cevirme
+	TOP A,B	ikinci basamaklari toplama
+	TOP A,<UCIKI>	ikinci basamaklar toplamina eldeyi ekleme
+	KAR A,$A	eldeyi kontrol etme
+	DEK DEVAM2	elde yoksa devam etme
+	CIK A,$A
+	YAZ $1,<UCUC>	elde varsa sonucun ucuncu basamagina bir yazma
+	DAL ILERI2	ileri dallanma
+OKU   ALT OKUMA	128 biti gectigi icin ekstra dallanmalar
+	DÖN
+YAZI 	ALT YAZMA
+	DÖN
+SAT	ALT SATBA
+	DÖN
+DEVAM2 YAZ $0,<UCUC>	elde yoksa sonucun ucuncu basamagina sifir yazma
+ILERI2 YAZ A,<UCIKI>	elde eklenmis ikinci basamaklar toplamini sonucun ikinci basamagina yazma
+	ALT SAT	satirbasi	
+	YÜK B,$53	S'nin ascii karsiligi
+	ALT YAZI	S'yi ekrana yazma
+	YÜK B,$3D	='in ascii karsiligi
+	ALT YAZI	='i ekrana yazma
+	YÜK B,<UCUC>	sonucun ucuncu basamagini b'ye yukleme
+	VEYA B,$30	30 ile veyalayip ascii karsiligini elde etme
+	ALT YAZI	ekrana yazma
+	YÜK B,<UCIKI>	sonucun ikinci basamagini b'ye yukleme
+	VEYA B,$30	30 ile veyalayip ascii karsiligini elde etme
+	ALT YAZI	ekrana yazma
+	YÜK B,<UCBIR>	sonucun birinci basamagini b'ye yukleme
+	VEYA B,$30	30 ile veyalayip ascii karsiligini elde etme
+	ALT YAZI	ekrana yazma
+	KES
+
+KOÞUL	YÜK A,$21
+	YAZ A,DENETÝM
+	DÖN
+
+OKUMA	YÜK A,<DURUM>
+	VE A,$01
+	DEE OKUMA
+	YÜK B,<ALICI>
+	DÖN
+
+YAZMA YÜK A,<DURUM>
+	VE A,$02
+	DEE YAZMA
+	YAZ B,<VERÝCÝ>
+	DÖN
+
+SATBA YÜK B,$0D
+	ALT YAZMA
+	YÜK B,$0A
+	ALT YAZMA
+	DÖN		

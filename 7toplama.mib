@@ -1,0 +1,13 @@
+	BAÞ $200
+	VER $1,$2,$3,$4,$5,$6,$7
+
+
+	BAS $300
+START	YÜK SK,$200			iþaretçiyi dizinin  baþýna ayarladýk 
+	SIL A				toplamý sýfýrladýk
+GERI  TOP A,<SK+00>		sýradaki veriyi toplama ekle
+	ART SK			iþaretçinin deðerini bir arttýr
+	KAR SK,$207			tüm veriler eklendi mi
+	DED GERI			eþit deðilse geri
+	YAZ A,<$220>		toplamý 220ye yaz
+	KES		

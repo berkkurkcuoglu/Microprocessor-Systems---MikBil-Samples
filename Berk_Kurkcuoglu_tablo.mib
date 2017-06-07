@@ -1,0 +1,24 @@
+*----------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Tablodaki Degere Kisa Yoldan Erisme
+*----------------------------------------------------------------------------------------
+
+	BAS $100	tablo olarak kullanilacak dizi
+	VER $00,$11,$22,$33,$44,$55,$66,$77,$88,$99
+
+	BAS $10	0 ila 9 arasinda bir sayiyi 10'uncu bellek gozune koyma
+	VER $0,$6
+
+* Simgesel adreslerin atanmasi
+
+TABLO EÞT	$100	tablonun baslangic adresi
+ADRES	EÞT	$10	sayiyi tutan bellek gozunun adresi
+
+* Program baslangici @300
+
+	BAS $300
+START	YUK SK,TABLO	sk'ya dizinin(tablonun) baslangic adresine ayarlama
+	YUK CD,<ADRES>	cd'ye adreste bulunan sayiyi yukleme
+	YUK A,<SK+CD+00>	a'ya tablonun baslangici+sayi isleminin sonucu ortaya cikan adresteki sayiyi yukleme
+	YAZ A,<$20>		tabloya gore elde edilen sayiyi 20nci bellek gozune yazma
+	KES
+

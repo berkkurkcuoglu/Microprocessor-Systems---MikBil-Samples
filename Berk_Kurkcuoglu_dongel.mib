@@ -1,0 +1,22 @@
+*----------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems Lambalari sirayla yakip basa donme
+*----------------------------------------------------------------------------------------	
+
+	BAS $1000
+ 
+BAÞLA	YAZ $FF, <YÖNLEN.B>
+BASA	YUK B,$8
+	SIL A
+DEVAM	ART A	
+	YAZ A,<ÝSKELE.B>
+	SOL A
+	ALT GECIK
+	ALT GECIK
+	ALT GECIK	
+	ADED B,DEVAM 
+	DAL BASA
+
+GECIK YUK SK,$FFFF
+GERI	AZT SK
+	DED GERI
+	DON

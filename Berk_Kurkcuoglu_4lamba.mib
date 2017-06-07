@@ -1,0 +1,10 @@
+*----------------------------------------------------------------------------------------
+* Berk Kurkcuoglu 150130205 Microprocessor Systems 4 Lambadan Secilileri Yakma
+*----------------------------------------------------------------------------------------
+
+	BAS $1000
+START	YAZ $F0,<YÖNLEN.A>
+	YAZ $0F,<YÖNLEN.B>	
+	YUK A,<ÝSKELE.A>		
+	YAZ A,<ÝSKELE.B>
+	DAL START	
